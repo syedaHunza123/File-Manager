@@ -1,0 +1,12 @@
+#file-manager {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive grid */
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.file-item {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
