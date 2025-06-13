@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Virtual File Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="file-manager">
+    <button id="create-folder">Create Folder</button>
+    <button id="create-file">Create File</button>
+    <div id="file-list"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+CSS (style.css):
+
+#file-manager {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 20px auto;
+}
+
+#file-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+}
+
+.file-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+JavaScript (script.js):
+
+const fileList = document.getElementById('file-list');
+const createFolderButton = document.getElementById('create-folder');
+const createFileButton = document.getElementById('create-file');
+
+createFolderButton.addEventListener('click', () => {
+  const folderName = prompt("Enter folder name:");
+  if (folderName) {
+    createItem('folder', folderName);
+  }
+});
+
+createFileButton.addEventListener('click', () => {
+  const fileName = prompt("Enter file name:");
+  if (fileName) {
+    createItem('file', fileName);
+  }
+});
+
+
+function createItem(type, name) {
+  const item = document.createElement('div');
+  item.classList.add('file-item');
+  item.textContent = name;
+  item.dataset.type = type; //Store type for later use.
+  fileList.appendChild(item);
+}
