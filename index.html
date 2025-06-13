@@ -2,15 +2,68 @@
 <html>
 <head>
 <title>Virtual File Manager</title>
-<link rel="stylesheet" href="style.css">
+<style>
+/* CSS Styles */
+#file-manager {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.file-item {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+</style>
 </head>
 <body>
   <div id="file-manager">
-    <button id="create-folder">Create Folder</button>
-    <button id="create-file">Create File</button>
-    <div id="file-list"></div>
-  </div>
-  <script src="script.js"></script>
+    <div id="file-list">
+      <!-- Files and folders will be added here -->
+    </div>
+    <button id="addFileButton">Add File</button> </div>
+
+  <script>
+  // JavaScript Functionality
+  function loadData() {
+    let data = localStorage.getItem('fileData');
+    return data ? JSON.parse(data) : { files: [] };
+  }
+
+  function saveData(data) {
+    localStorage.setItem('fileData', JSON.stringify(data));
+  }
+
+  let fileData = loadData();
+
+  function addFile(fileName) {
+    fileData.files.push({ name: fileName });
+    saveData(fileData);
+    renderFileList();
+  }
+
+  function renderFileList() {
+    const fileList = document.getElementById('file-list');
+    fileList.innerHTML = '';
+
+    fileData.files.forEach(file => {
+      const fileItem = document.createElement('div');
+      fileItem.classList.add('file-item');
+      fileItem.textContent = file.name;
+      fileList.appendChild(fileItem);
+    });
+  }
+
+  renderFileList();
+
+  document.getElementById('addFileButton').addEventListener('click', () => {
+    const fileName = prompt('Enter file name:');
+    if (fileName) {
+      addFile(fileName);
+    }
+  });
+  </script>
 </body>
 </html>
-
